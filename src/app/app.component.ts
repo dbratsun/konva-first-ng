@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { KonvaWrapper } from './konva/konva-wrapper';
 import { ILayerConfig } from './konva/models/models';
 
 @Component({
@@ -13,13 +14,15 @@ export class AppComponent {
 
   title = 'konva-first-ng';
 
-  constructor() {
+  constructor(private konvaWrapper: KonvaWrapper) {
     this.layers$ = of(this.layers);
   }
 
-  createLayer() {
+  async createLayer() {
     const index = this.layers.length + 1;
-    this.layers.push({ name: `layer ${index}` });
+    await this.layers.push({ name: `layer ${index}` });
+    const layer = this.konvaWrapper.getLayer(`layer ${index}`);
+    console.log('return layer: ', layer);
   }
 
   createCircle() {}

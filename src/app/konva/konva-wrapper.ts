@@ -4,6 +4,7 @@ import { Layer } from 'konva/lib/Layer';
 import { Circle } from 'konva/lib/shapes/Circle';
 import { LiteralArrayExpr } from '@angular/compiler';
 import { ILayerConfig, IStageConfig } from './models/models';
+import { Observable, of } from 'rxjs';
 
 @Injectable()
 export class KonvaWrapper {
@@ -38,4 +39,25 @@ export class KonvaWrapper {
     layer.add(circle);
     return circle;
   }
+
+  getLayers(): Observable<Layer[]> {
+    const layers = of(this._layers);
+    return layers;
+  }
+
+  getLayer(name: string): Layer | undefined {
+    // this._layers.find((element) => element.name === name)
+    const childs = this._stage.children;
+    console.log('childs: ', this._stage.getChildren());
+    const child = this._stage.getChildren((item) => {
+      console.log(item.name(), name);
+      return item.name() === name;
+    });
+    console.log('child: ', child);
+    return child.length > 0 ? child[0] : undefined;
+  }
+
+  // getCircles(layer: string): Observable<Circle[]> {
+
+  // }
 }
