@@ -18,9 +18,9 @@ export class AppComponent {
     this.layers$ = of(this.layers);
   }
 
-  async createLayer() {
+  createLayer() {
     const index = this.layers.length + 1;
-    await this.layers.push({ name: `layer ${index}` });
+    this.layers.push({ name: `layer ${index}` });
     const layer = this.konvaWrapper.getLayer(`layer ${index}`);
     console.log('return layer: ', layer);
   }
